@@ -1,0 +1,24 @@
+[unstable]
+build-std = ["core"]
+
+[build]
+target = "thumbv7em-none-eabihf"
+
+[env]
+DEFMT_LOG = "info"
+
+[target.thumbv7em-none-eabihf]
+runner = "probe-run --chip STM32F411RETx"
+rustflags = [
+  "-C", "link-arg=-Tdefmt.x",
+  "-C", "target-cpu=cortex-m4"
+]
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+
+[profile.dev]
+opt-level = "z"
+debug = 1
